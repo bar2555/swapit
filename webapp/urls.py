@@ -7,4 +7,5 @@ from . import views
 urlpatterns = [
     # map the index view to the default URL
     path('', views.index, name='index'),
+    path('item/<int:item_id>', views.detail, name='detail'),
 ]
