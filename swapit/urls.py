@@ -19,6 +19,8 @@ from django.urls import include, path
 urlpatterns = [
     # point to the URLconf for the webapp
     path('', include('webapp.urls')),
-    # point the tools to admin URL 
+    # point the tools to admin URL
     path('admin/', admin.site.urls),
 ]
+
+handler404 = 'webapp.views.notfound'
