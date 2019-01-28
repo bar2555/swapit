@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ item.item_name }}{% endblock %}
+
+{% block main %}
+
+This is the item description:
+<ul>
+  <li>{{ item.item_description }}</li>
+</ul>
+
+{% endblock %}

@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-handler404 = 'webapp.views.notfound'
+# uncomment to set custom error response handler
+# handler404 = 'webapp.views.notfound'
