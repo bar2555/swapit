@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # include webapp in th project
+    # include webapp in the project
     'webapp.apps.WebappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -68,6 +68,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'swapit.wsgi.application'
 

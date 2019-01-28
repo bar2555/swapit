@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}New Item{% endblock %}
+
+{% block main %}
+
+  <h2>Add New Item</h2>
+
+  <form action="{% url 'item_add'}" method="post">
+  {% csrf_token %}
+    <div>
+      <input name="item_name" placeholder="Item name" type="text"/>
+      <input name="item_description" placeholder="Item description" type="text"/>
+    </div>
+    <div>
+      <label for="image">Upload an image of your item:</label>
+    </div>
+    <div>
+      <input name="pic" type="file" accept="image/*" id="image">
+    </div>
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+
+  </form>
+
+{% endblock %}

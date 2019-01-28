@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}index{% endblock %}
+
+{% block main %}
+
+  {% if item_list %}
+    <ul>
+      {% for item in item_list %}
+        <!-- use the url template tag to point to the path named 'item_detail' in webapp.urls and pass in the item.id variable -->
+        <li><a href={% url 'item_detail' item.id %}>{{ item.item_name }}</a> - {{ item.item_description }}</li>
+        {% endfor %}
+    </ul>
+  {% else %}
+    <p>No items are available.</p>
+  {% endif %}
+
+{% endblock %}
