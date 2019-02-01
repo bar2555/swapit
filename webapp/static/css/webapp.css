@@ -3,8 +3,23 @@
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
-h1 a {
-    color: #CC8D8D;
+nav .navbar-brand {
     font-family: 'Spicy Rice', cursive;
     font-size: 80px;
+}
+nav .navbar-brand .red {
+  color: #cc8d8d;
+}
+main .form-control
+{
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+    /* add padding */
+    padding-left: 15px;
+    padding-top: 15px;
 }

@@ -6,7 +6,7 @@
 
   <h2>Add New Item</h2>
 
-  <form action="{% url 'item_add'}" method="post">
+  <form action="/newitem" method="post" enctype="multipart/form-data">
   {% csrf_token %}
     <div>
       <input name="item_name" placeholder="Item name" type="text"/>

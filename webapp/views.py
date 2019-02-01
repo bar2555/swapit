@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
+from django.utils import timezone
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 from .models import Item
 from .forms import SignUpForm
@@ -28,8 +31,16 @@ def item_detail(request, item_id):
 
 # page to add new item
 def item_add(request):
-    if request.method == 'GET':
-        return render(request, 'webapp/item_add.html')
+    # if request is a post try to ave item
+    if request.method == 'POST' and request.FILES['pic']:
+        # get from data
+        item_name = request.POST.get("item_name")
+        item_description = request.POST.get("item_description")
+        item_image = request.FILES.get("pic")
+        # create item from data
+        item = Item(item_name=item_name, item_description=item_description, item_image=item_image, date_posted=timezone.now())
+        item.save()
+        return redirect(item_detail, item_id=item.id)
     else:
         return render(request, 'webapp/item_add.html')
 
@@ -60,6 +71,35 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'webapp/signup.html', {'form': form})
+
+# logout view
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+
+# login view
+def login_view(request):
+    # if request is post then try to login user
+    if request.method == 'POST':
+        # get username and password from login form
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # try to login user
+        user = authenticate(username=username, password=password)
+        if user:
+            # if user is valid and active, login and redirect to index
+            if user.is_active:
+                login(request, user)
+                return redirect('index')
+            else:
+                # inactive account error
+                return HttpResponse("User Inactive")
+        else:
+            # bad username/password error
+            return HttpResponse("Invalid username/password combination")
+    # if request is get then render login page
+    else:
+        return render(request, 'webapp/login.html', {})
 
 '''
 # uncomment to set custom 404 error view
