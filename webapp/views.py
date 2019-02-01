@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.contrib.auth import login, authenticate, logout
+from django.utils import timezone
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 from .models import Item
 from .forms import SignUpForm
@@ -28,8 +31,16 @@ def item_detail(request, item_id):
 
 # page to add new item
 def item_add(request):
-    if request.method == 'GET':
-        return render(request, 'webapp/item_add.html')
+    # if request is a post try to ave item
+    if request.method == 'POST' and request.FILES['pic']:
+        # get from data
+        item_name = request.POST.get("item_name")
+        item_description = request.POST.get("item_description")
+        item_image = request.FILES.get("pic")
+        # create item from data
+        item = Item(item_name=item_name, item_description=item_description, item_image=item_image, date_posted=timezone.now())
+        item.save()
+        return redirect(item_detail, item_id=item.id)
     else:
         return render(request, 'webapp/item_add.html')
 
