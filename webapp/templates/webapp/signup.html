@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 
+{% load add_attr %}
+
 {% block title %}Register for Swapit!{% endblock %}
 
 {% block main %}
@@ -10,9 +12,13 @@
     {% csrf_token %}
 
     <!-- render the form wrapped in <p> tags -->
-    {{ form.as_p }}
-
-    <button type="submit">Sign up</button>
+    <!-- {{ form.as_p }} -->
+    {% for field in form %}
+      <div class="form-group">
+        {{ field|add_attr:"class:form-control" }}
+      </div>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">Sign up</button>
   </form>
 
 {% endblock %}
