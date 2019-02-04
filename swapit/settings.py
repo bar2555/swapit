@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 # Media files (uploaded item images)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(WEBAPP_ROOT, 'media/')
+
+# login_required decorator redirects to this URL
+LOGIN_URL = "/login"

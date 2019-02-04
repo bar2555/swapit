@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
@@ -30,6 +31,7 @@ def item_detail(request, item_id):
     return render(request, 'webapp/item_detail.html', context)
 
 # page to add new item
+@login_required
 def item_add(request):
     # if request is a post try to ave item
     if request.method == 'POST' and request.FILES['pic']:

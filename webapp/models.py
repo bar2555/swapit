@@ -13,6 +13,8 @@ class Item(models.Model):
     item_description = models.CharField(max_length=200)
     date_posted = models.DateTimeField()
     item_image = models.ImageField(upload_to="images", null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    available = models.BooleanField(default=True)
     # set item object representation for admin etc.
     def __str__(self):
         return self.item_name
