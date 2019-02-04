@@ -6,8 +6,13 @@
 
 This is the item description:
 <ul>
+  <li>Posted by {{ user.username }}</li>
+  <li>Location {{ user.userinfo.postcode }}</li>
   <li>{{ item.item_description }}</li>
   <li><img src="{{ item.item_image.url }}"></li>
+  {% if item.match_item is not None %}
+  <li>matched with {{ item.match_item.item_name }}</li>
+  {% endif %}
 </ul>
 
 {% endblock %}
