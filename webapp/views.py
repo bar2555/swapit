@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
+from django.contrib.auth.models import User
 from .models import Item
 from .forms import SignUpForm
 
@@ -24,12 +26,19 @@ def item_detail(request, item_id):
     except Item.DoesNotExist:
         # raise appropriate error if item not found
         raise Http404("Item id is not valid")
+    # get user that posted item
+    user = User.objects.get(id=i.user_id)
+    # if item is matched get the partner
+    if i.match_item is not None:
+        j = i.match_item
     context = {
         'item': i,
+        'user': user,
     }
     return render(request, 'webapp/item_detail.html', context)
 
 # page to add new item
+@login_required
 def item_add(request):
     # if request is a post try to ave item
     if request.method == 'POST' and request.FILES['pic']:

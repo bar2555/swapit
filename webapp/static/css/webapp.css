@@ -6,6 +6,7 @@
 nav .navbar-brand {
     font-family: 'Spicy Rice', cursive;
     font-size: 80px;
+    padding-left: 40px;
 }
 nav .navbar-brand .red {
   color: #cc8d8d;
