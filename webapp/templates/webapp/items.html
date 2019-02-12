@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}Browse Items{% endblock %}
+
+{% block main %}
+
+This is the item description:
+<ul>
+  <li>Posted by {{ item_list.0.user.username }}</li>
+  <li>Location {{ item_list.0.user.userinfo.postcode }}</li>
+  <li>{{ item_list.0.item_description }}</li>
+  <li><img src="{{ item_list.0.item_image.url }}"></li>
+  {% if item_list.0.match_item is not None %}
+  <li>matched with {{ item_list.0.match_item.item_name }}</li>
+  {% endif %}
+</ul>
+
+{% endblock %}
