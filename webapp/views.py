@@ -147,7 +147,6 @@ def browse_items(request):
         item_list = Item.objects.filter(available=True).order_by("?")
         return render(request, 'webapp/items.html', {'item_available': item_available, 'item_list': item_list})
 
-
 '''
 # uncomment to set custom 404 error view
 def notfound(request, exception):
