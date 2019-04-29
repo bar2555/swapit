@@ -24,10 +24,10 @@ class UserInfo(models.Model):
 
 # model for messages between matched users
 class Message(models.Model):
-    user_sent = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_rec = models.ForeignKey(User, on_delete=models.CASCADE)
-    item_sent = models.ForeignKey(Item, on_delete=models.CASCADE)
-    item_rec = models.ForeignKey(Item, on_delete=models.CASCADE)
+    user_sent = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    user_rec = models.ForeignKey(User, related_name='recieved_messages', on_delete=models.CASCADE)
+    item_sent = models.ForeignKey(Item, related_name='sent_messages', on_delete=models.CASCADE)
+    item_rec = models.ForeignKey(Item, related_name='recieved_messages', on_delete=models.CASCADE)
     body = models.TextField(max_length=500)
     sent_at = models.DateTimeField()
     # todo : methods for retrieving inbox etc.

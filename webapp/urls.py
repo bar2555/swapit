@@ -17,5 +17,6 @@ urlpatterns = [
     # logout and then redirect to index using next_page variable
     path('logout', views.logout_view, name='logout'),
     path('login', views.login_view, name='login'),
-    path('items', views.browse_items, name='browse_items')
+    path('items', views.browse_items, name='browse_items'),
+    path('nextitem', views.item, name='next_item')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
