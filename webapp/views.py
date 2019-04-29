@@ -37,12 +37,30 @@ def item_detail(request, item_id):
     }
     return render(request, 'webapp/item_detail.html', context)
 
+# random item
+def item(request):
+    # get current user details
+    current_user = request.user
+    # check whether user has uploaded an item that is currently available
+    item_available = False
+    try:
+        user_items = Item.objects.filter(user=current_user.id)
+    except:
+        pass
+    for item in user_items:
+        if item.available == True:
+            item_available = True
+            break
+    # get list of all available items
+    item_list = Item.objects.filter(available=True).order_by("?")
+    return render(request, 'webapp/item.html', {'item_available': item_available, 'item_list': item_list})
+
 # page to add new item
 @login_required
 def item_add(request):
     # if request is a post try to ave item
     if request.method == 'POST' and request.FILES['pic']:
-        # get from data
+        # get form data
         item_name = request.POST.get("item_name")
         item_description = request.POST.get("item_description")
         item_image = request.FILES.get("pic")
@@ -109,6 +127,25 @@ def login_view(request):
     # if request is get then render login page
     else:
         return render(request, 'webapp/login.html', {})
+
+# page for logging in user to browse available items
+@login_required
+def browse_items(request):
+        # get current user details
+        current_user = request.user
+        # check whether user has uploaded an item that is currently available
+        item_available = False
+        try:
+            user_items = Item.objects.filter(user=current_user.id)
+        except:
+            pass
+        for item in user_items:
+            if item.available == True:
+                item_available = True
+                break
+        # get list of all available items
+        item_list = Item.objects.filter(available=True).order_by("?")
+        return render(request, 'webapp/items.html', {'item_available': item_available, 'item_list': item_list})
 
 '''
 # uncomment to set custom 404 error view

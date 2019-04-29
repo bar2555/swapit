@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block scripts %}<script src="{% static 'javascript\ajax.js' %}"></script>{% endblock %}
+
+{% block title %}Browse Items{% endblock %}
+
+{% block main %}
+
+<div class="container text-center">
+  <div class="col-lg-4 mx-auto">
+    <div class="row-lg-4 mx-auto" id="item">
+
+      <h2>{{ item_list.0.item_name }}</h2>
+      <img src="{{ item_list.0.item_image.url }}">
+      <p>{{ item_list.0.item_description }}</p>
+      <h3 class="my-3">Posted by {{ item_list.0.user.username }}</h3>
+      <h3 class="my-3">Postcode {{ item_list.0.user.userinfo.postcode }}</h3>
+      {% if item_list.0.match_item is not None %}
+      <li>matched with {{ item_list.0.match_item.item_name }}</li>
+      {% endif %}
+    </div>
+    <!-- /.row -->
+    <div class="row-lg-4 mx-auto"
+      <button onclick="ajax_request(event)" type="button" class="btn btn-primary">NEXT</button>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.container -->
+
+{% endblock %}
